@@ -30,12 +30,10 @@ class Jokes extends React.Component {
           }
         }
         for (let i = 0; i < uniqueArr.length; i++) {
-          let obj = res.data.find(function(obj) {
-            return obj.id === uniqueArr[i];
-          });
+          let obj = res.data.find(obj => obj.id === uniqueArr[i]);
           jokes.push(obj);
         }
-        this.setState({ jokes: jokes, loggedin: true });
+        this.setState({ jokes, loggedin: true });
       })
       .catch(err => {
         alert('You must be logged in to continue... Redirecting');
