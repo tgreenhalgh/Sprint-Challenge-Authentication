@@ -48,7 +48,7 @@ class Header extends React.Component {
           </span>
           {this.state.loggedin ? (
             <div>
-              <Link style={{ textDecoration: 'none' }} to="/login">
+              <Link style={{ textDecoration: 'none' }} to="/main">
                 <Button onClick={this.handleLogout}>Logout</Button>
               </Link>
             </div>

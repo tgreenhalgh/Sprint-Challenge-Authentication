@@ -6,12 +6,21 @@ class Main extends React.Component {
     this.props.history.push('/jokes');
   };
 
+  handleLoginClick = () => {
+    this.props.history.push('/login');
+  };
+
+  handleRegisterClick = () => {
+    this.props.history.push('/signup');
+  };
+
   render() {
     return (
       <div>
         Welcome to Dad Jokes!!!
         <br />
-        <br />
+        <Button onClick={this.handleLoginClick}>Log in</Button>
+        <Button onClick={this.handleRegisterClick}>Regsiter</Button>
         <Button onClick={this.handleButtonClick}>Jokes</Button>
       </div>
     );

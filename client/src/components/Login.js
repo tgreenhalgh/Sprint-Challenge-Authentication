@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Form, FormGroup, Label, Input } from 'reactstrap';
 
 class Login extends React.Component {
   constructor() {
@@ -54,30 +55,28 @@ class Login extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div>
-          Username:
-          <input
+      <Form onSubmit={this.handleSubmit}>
+        <FormGroup>
+          <Label for="Username">Username</Label>
+          <Input
             type="text"
             name="username"
+            value={this.state.username}
             onChange={this.handleInput}
             placeholder="username"
-            value={this.state.username}
           />
-        </div>
-        <div>
-          Password
-          <input
+        </FormGroup>
+        <FormGroup>
+          <Label for="password">Password</Label>
+          <Input
             type="password"
             name="password"
+            value={this.state.password}
             onChange={this.handleInput}
             placeholder="password"
-            value={this.state.password}
           />
-        </div>
-        <div>
-          <button type="submit">Login</button>
-        </div>
+        </FormGroup>
+        <Button>Submit</Button>
         <div>
           <Modal isOpen={this.state.modal} toggle={this.toggle}>
             <ModalHeader toggle={this.toggle}>ERROR</ModalHeader>
@@ -89,7 +88,7 @@ class Login extends React.Component {
             </ModalFooter>
           </Modal>
         </div>
-      </form>
+      </Form>
     );
   }
 }

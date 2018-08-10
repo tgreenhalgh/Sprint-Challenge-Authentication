@@ -33,10 +33,10 @@ async function register(req, res) {
         });
       }
     } catch (err) {
-      res.status(500).send(`${err}`);
+      res.status(500).json({ error: `${err}` });
     }
   } catch (err) {
-    res.status(500).send(`${err}`);
+    res.status(500).json({ error: `${err}` });
   }
 }
 
