@@ -20,6 +20,7 @@ class Jokes extends React.Component {
       .get('http://localhost:5000/api/jokes', requestOptions)
       .then(res => {
         // we're sent an array of jokes
+        let uniqueArr = [];
         this.setState({ jokes: res.data });
       })
       .catch(err => {

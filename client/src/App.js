@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+import Header from './components/Header';
 import Main from './components/Main';
 import Login from './components/Login';
 import Jokes from './components/Jokes';
@@ -10,6 +11,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Route path="/" component={Header} />
         <Route exact path="/" component={Main} />
         <Route path="/login" component={Login} />
         <Route path="/jokes" component={Jokes} />
