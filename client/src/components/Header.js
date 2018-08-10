@@ -35,6 +35,10 @@ class Header extends React.Component {
     localStorage.removeItem('jwt');
   }
 
+  handleMoreJokes() {
+    window.location.reload();
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -51,8 +55,19 @@ class Header extends React.Component {
               <Link style={{ textDecoration: 'none' }} to="/main">
                 <Button onClick={this.handleLogout}>Logout</Button>
               </Link>
+              <Button onClick={this.handleMoreJokes}>More Jokes</Button>
             </div>
-          ) : null}
+          ) : (
+            <div>
+              <Link style={{ textDecoration: 'none' }} to="/login">
+                <Button onClick={this.handleLogout}>Login</Button>
+              </Link>
+              {'  '}
+              <Link style={{ textDecoration: 'none' }} to="/signup">
+                <Button onClick={this.handleLogout}>Register</Button>
+              </Link>
+            </div>
+          )}
         </Div>
       </React.Fragment>
     );

@@ -7,10 +7,11 @@ class Jokes extends React.Component {
     super();
     this.state = {
       jokes: [],
+      loggedin: false,
     };
   }
 
-  componentDidMount() {
+  getJokes = () => {
     const token = localStorage.getItem('jwt');
     const requestOptions = {
       headers: { Authorization: token },
@@ -34,7 +35,7 @@ class Jokes extends React.Component {
           });
           jokes.push(obj);
         }
-        this.setState({ jokes: jokes });
+        this.setState({ jokes: jokes, loggedin: true });
       })
       .catch(err => {
         alert('You must be logged in to continue... Redirecting');
@@ -43,6 +44,18 @@ class Jokes extends React.Component {
         }, 500);
         console.error('axios err:', err);
       });
+  };
+
+  componentDidMount() {
+    if (localStorage.getItem('jwt')) {
+      this.setState({ loggedin: true });
+      this.getJokes();
+    } else {
+      alert('You must be logged in to continue... Redirecting');
+      setTimeout(() => {
+        this.props.history.push('/login');
+      }, 500);
+    }
   }
 
   render() {

@@ -56,6 +56,8 @@ class Login extends React.Component {
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
+        <h1>Login for your Amazing Jokes!!</h1>
+        <br />
         <FormGroup>
           <Label for="Username">Username</Label>
           <Input

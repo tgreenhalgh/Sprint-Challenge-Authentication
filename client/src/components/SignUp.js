@@ -60,6 +60,8 @@ class SignUp extends React.Component {
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
+        <h1>Sign up to see the Best Jokes Ever!</h1>
+        <br />
         <FormGroup>
           <Label for="Username">Username</Label>
           <Input
