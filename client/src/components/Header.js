@@ -32,7 +32,6 @@ class Header extends React.Component {
   }
 
   handleLogout() {
-    // this.setState({ loggedin: false });
     localStorage.removeItem('jwt');
   }
 

@@ -28,10 +28,9 @@ class SignUp extends React.Component {
       .post('http://localhost:5000/api/register', USER)
       .then(res => {
         // we're sent a JWT token
-        const { token, username } = res.data;
+        const token = res.data;
         // stash it for later use
         localStorage.setItem('jwt', token);
-        localStorage.setItem('username', username);
         this.setState({ username: '', password: '' });
         this.props.history.push('/jokes');
       })
