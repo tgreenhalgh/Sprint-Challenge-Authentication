@@ -23,6 +23,7 @@ server.use(errors);
 server.use((req, res) => {
   res.status(404).send(`<h1>404: resource "${req.url}" not found</h1>`);
 });
+
 module.exports = {
   server,
 };

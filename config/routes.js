@@ -1,6 +1,8 @@
 const axios = require('axios');
 const bcrypt = require('bcryptjs');
+// database helpers
 const registerDB = require('../database/helpers/registerDB');
+const usersDB = require('../database/helpers/usersDB');
 const { registerConstraints, loginConstraints } = require('../middleware/');
 
 const { authenticate, generateToken } = require('./middlewares');
@@ -38,9 +40,34 @@ async function register(req, res) {
   }
 }
 
-function login(req, res) {
+async function login(req, res) {
   // implement user login
-  res.send('howdy');
+  const { USERNAME, CLEARPASSWORD } = req;
+
+  try {
+    const USER = await usersDB.getByUsername(USERNAME);
+    if (USER) {
+      const VALID = await bcrypt.compare(CLEARPASSWORD, USER.password);
+      if (VALID) {
+        // set JWT: generate the token
+        const token = generateToken(USER);
+        // attach token to the response
+        res.status(200).send(token);
+      } else {
+        res.status(401).json({ error: `Unauthorized` });
+      }
+    } else {
+      // error with the user, but don't let the hackers know!
+      // take the same amount of time as if legit checking
+      await bcrypt.compare(
+        CLEARPASSWORD,
+        '$2a$14$plRslh.07bHu/BWHztxq9.20YIJluMBo9JhdIOCJOQjvAZHmbPV6a',
+      );
+      res.status(401).json({ error: `Unauthorized` });
+    }
+  } catch (err) {
+    res.status(500).send(`${err}`);
+  }
 }
 
 function getJokes(req, res) {
