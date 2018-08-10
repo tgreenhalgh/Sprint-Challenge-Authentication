@@ -1,10 +1,12 @@
 const jwt = require('jsonwebtoken');
-
 const jwtKey = require('../_secrets/keys').jwtKey;
+// generates a unique ID
+const uuid = require('uuid/v4');
 
 // quickly see what this file exports
 module.exports = {
   authenticate,
+  generateToken,
 };
 
 // implementation details
@@ -24,4 +26,17 @@ function authenticate(req, res, next) {
       error: 'No token provided, must be set on the Authorization Header',
     });
   }
+}
+
+function generateToken(user) {
+  const payload = {
+    username: user.username,
+  };
+
+  const options = {
+    expiresIn: '1h',
+    jwtid: uuid(),
+  };
+
+  return jwt.sign(payload, SECRET, options);
 }

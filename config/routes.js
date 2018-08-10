@@ -1,4 +1,6 @@
 const axios = require('axios');
+const bcrypt = require('bcryptjs');
+const registerDB = require('../database/helpers/registerDB');
 const { registerConstraints, loginConstraints } = require('../middleware/');
 
 const { authenticate } = require('./middlewares');
@@ -11,9 +13,32 @@ module.exports = server => {
 
 async function register(req, res) {
   // implement user registration
-  const { USERNAME, PASSWORD } = req;
-  console.log('user and pass', USERNAME, PASSWORD);
-  res.JSON(USERNAME);
+  const { USERNAME, CLEARPASSWORD } = req;
+  try {
+    // hash the password
+    const HASH = await bcrypt.hash(CLEARPASSWORD, 14);
+    const USER = { username: USERNAME, password: HASH };
+    try {
+      const response = await registerDB.insert(USER);
+      if (response) {
+        // set JWT: generate the token
+        const token = {};
+        token.jwt = generateToken(USER);
+        token.username = USERNAME;
+        token.department = DEPARTMENT;
+        // attach token to the response
+        res.status(200).send(token);
+      } else {
+        res.status(400).json({
+          error: `Undetermined error adding user.`,
+        });
+      }
+    } catch (err) {
+      res.status(500).send(`${err}`);
+    }
+  } catch (err) {
+    res.status(500).send(`${err}`);
+  }
 }
 
 function login(req, res) {
