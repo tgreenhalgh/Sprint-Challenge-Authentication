@@ -20,8 +20,21 @@ class Jokes extends React.Component {
       .get('http://localhost:5000/api/jokes', requestOptions)
       .then(res => {
         // we're sent an array of jokes
-        // let uniqueArr = [];
-        this.setState({ jokes: res.data });
+        let uniqueArr = [];
+        let jokes = [];
+        for (let i = 0; i < res.data.length; i++) {
+          let val = res.data[i];
+          if (!uniqueArr.includes(val.id)) {
+            uniqueArr.push(val.id);
+          }
+        }
+        for (let i = 0; i < uniqueArr.length; i++) {
+          let obj = res.data.find(function(obj) {
+            return obj.id === uniqueArr[i];
+          });
+          jokes.push(obj);
+        }
+        this.setState({ jokes: jokes });
       })
       .catch(err => {
         alert('You must be logged in to continue... Redirecting');
