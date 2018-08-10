@@ -5,6 +5,7 @@ import Main from './components/Main';
 import Login from './components/Login';
 import Jokes from './components/Jokes';
 import SignUp from './components/SignUp';
+import { withRouter } from 'react-router';
 import './App.css';
 
 class App extends Component {
@@ -22,4 +23,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

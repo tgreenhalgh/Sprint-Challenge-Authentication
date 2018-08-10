@@ -29,7 +29,7 @@ class Login extends React.Component {
         const token = res.data;
         // stash it for later use
         localStorage.setItem('jwt', token);
-        this.props.history.push('/main');
+        this.props.history.push('/jokes');
       })
       .catch(err => {
         console.error('axios err:', err.response.data);

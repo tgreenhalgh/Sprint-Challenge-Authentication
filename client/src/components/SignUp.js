@@ -33,7 +33,7 @@ class SignUp extends React.Component {
         localStorage.setItem('jwt', token);
         localStorage.setItem('username', username);
         this.setState({ username: '', password: '' });
-        this.props.history.push('/main');
+        this.props.history.push('/jokes');
       })
       .catch(err => {
         if (err.response.data.includes('UNIQUE')) {

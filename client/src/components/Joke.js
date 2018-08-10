@@ -9,7 +9,6 @@ class Joke extends React.Component {
     };
   }
   handleClick = () => {
-    console.log('CLICKED');
     this.setState({ show: true });
   };
 
