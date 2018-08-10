@@ -3,11 +3,11 @@ const bcrypt = require('bcryptjs');
 const registerDB = require('../database/helpers/registerDB');
 const { registerConstraints, loginConstraints } = require('../middleware/');
 
-const { authenticate } = require('./middlewares');
+const { authenticate, generateToken } = require('./middlewares');
 
 module.exports = server => {
   server.post('/api/register', registerConstraints, register);
-  server.post('/api/login', login);
+  server.post('/api/login', loginConstraints, login);
   server.get('/api/jokes', authenticate, getJokes);
 };
 
@@ -22,10 +22,7 @@ async function register(req, res) {
       const response = await registerDB.insert(USER);
       if (response) {
         // set JWT: generate the token
-        const token = {};
-        token.jwt = generateToken(USER);
-        token.username = USERNAME;
-        token.department = DEPARTMENT;
+        const token = generateToken(USER);
         // attach token to the response
         res.status(200).send(token);
       } else {
